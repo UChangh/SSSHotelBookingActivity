@@ -9,7 +9,7 @@ open class CheckDate {
         var dateFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd")  // string type
         var check = LocalDate.of(chk[0].toInt(), chk[1].toInt(), chk[2].toInt())
 
-        println("체크인 날짜 : ${check.format(dateFormat)}")
+        println("입력하신 날짜 : ${check.format(dateFormat)}")
         return check.format(dateFormat)
     }
 }
