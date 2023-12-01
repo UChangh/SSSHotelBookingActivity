@@ -3,35 +3,20 @@ package com.example.ssshotelbookingactivity
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-fun main() {
-    var name: String = "Admin"
-    var roomno: Int = 100
-    var checkin: String = "1900/01/01"
-    var checkout: String = "2100/12/31"
+data class Settings(
+    var name: String,
+    var roomno: Int,
+    var checkin: String,
+    var checkout: String
+)
 
+fun main() {
+    var person = Settings("Admin", 100, "1900/01/01", "2100/12/31")
     while (true) {
         print("호텔 예약 프로그램\n1.호텔 예약, 2.예약자 목록, 3.목록 정렬, 4.프로그램 종료, 5.사용자 조회, 6.사용자 변경")
         var menu = input().toInt()
-
         when(menu) {
-            1 -> {
-                println("성함을 입력해 주세요")
-                name = input()
-                println("예약하실 방 번호를 입력해 주세요")
-                roomno = input().toInt()
-
-                roomno = roomno(roomno)
-
-                println("체크인 날짜를 입력해 주세요. 형식 : yyyy/MM/dd")
-                checkin = input()
-                println("체크아웃 날짜를 입력해 주세요. 형식 : yyyy/MM/dd")
-                checkout = input()
-
-                checkin = checkin(checkin)
-                checkout = checkout(checkin, checkout)
-
-                BookingFlow(name, roomno, checkin, checkout)
-            }
+            1 -> Menu1().menu1(person.name, person.roomno, person.checkin, person.checkout)
             2 -> {}
             3 -> {}
             4 -> {
