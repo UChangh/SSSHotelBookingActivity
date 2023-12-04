@@ -49,7 +49,6 @@ open class Menu1 {
                 booklist.add(roomno)
                 roomlist.set(roomlist.indexOf(roomno),0)
 
-                // booking = Book(name, roomno, checkin, checkout)
                 booking = Person(name, roomno, checkin, checkout)
                 personarray[0] = booking.name
                 personarray[1] = booking.roomno
@@ -116,3 +115,4 @@ fun bookmoney(myMoney:Int):Int {
     }
     return values
 }
+
