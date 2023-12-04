@@ -1,21 +1,24 @@
 package com.example.ssshotelbookingactivity
 
+import kotlin.random.Random
 
-open class Menu1:PeopleList() {
+
+open class Menu1 {
 
     open fun menu1() {
         var roomlist = roomlists
         var booklist = booklists
         var checkin = ""
         var checkout = ""
-        var booking:Book
+        var booking:Person
+        var personarray = Array<Any>(4) { }
 
         var name = input("name").toString()
         var roomno = input("roomno").toString().toInt()
 
         while(true) {
             when {
-                roomno in roomlist -> {                          // 항상 실행됨(roomlist가 항상 초기화됨)
+                roomno in roomlist -> {
                     println("선택하신 방은 예약이 가능합니다.")
                     break
                 }
@@ -36,9 +39,9 @@ open class Menu1:PeopleList() {
         checkout = readln()
         checkout = checkout(CheckDate().check(checkin), CheckDate().check(checkout))
 
-        var money = input("money").toString().toInt()
+        input("money")
 
-        when (bookmoney(money)) {
+        when (bookmoney(moneyrange)) {
             -1 -> {
                 println("예약이 취소되었습니다.")
             }
@@ -46,14 +49,19 @@ open class Menu1:PeopleList() {
                 booklist.add(roomno)
                 roomlist.set(roomlist.indexOf(roomno),0)
 
-                booking = Book(name, roomno, checkin, checkout)
-                list.add(booking)
+                // booking = Book(name, roomno, checkin, checkout)
+                booking = Person(name, roomno, checkin, checkout)
+                personarray[0] = booking.name
+                personarray[1] = booking.roomno
+                personarray[2] = booking.checkin
+                personarray[3] = booking.checkout
+                list[list.size] = personarray
             }
         }
     }
 }
 
-val booking = 500
+val bookingPrice = Random.nextInt(1, 2001)
 
 fun input(type:String): Any? {
     return when(type) {
@@ -85,15 +93,7 @@ fun input(type:String): Any? {
             }
         }
         "money" -> {
-            println("소지금을 입력해 주세요.")
-            while(true) {
-                try {
-                    var money:String? = readLine()
-                    return money?.toInt() ?: -1
-                } catch(e:Exception) {
-                    println("소지금을 다시 입력해주세요")
-                }
-            }
+            println("현재 소지금 : $moneyrange")
         }
         else -> "X"
     }
@@ -104,9 +104,9 @@ fun bookmoney(myMoney:Int):Int {
     var values = money
     println("잔액 : $money")
     myMoney?.run {
-        if(money >= booking) {
-            println("[예약금 지불]: [${money} - ${booking}] = ${money- booking}")
-            money -= booking
+        if(money >= bookingPrice) {
+            println("[예약금 지불]: [${money} - ${bookingPrice}] = ${money - bookingPrice}")
+            money -= bookingPrice
             println("예약이 완료되었습니다.")
             values = money
         } else {
